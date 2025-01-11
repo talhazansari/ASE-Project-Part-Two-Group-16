@@ -16,6 +16,7 @@ def main():
     df_preprocessed_stations = m1.preprop_lstat(df_location_stations, df_postal_codes, pdict)
     gdf_station_occurrences_by_plz = m1.count_plz_occurrences(df_preprocessed_stations)
 
+
     # Load and preprocess resident data
     df_resident_data = pd.read_csv("datasets/" + pdict["file_residents"], delimiter=",")
     gdf_preprocessed_residents = m1.preprop_resid(df_resident_data, df_postal_codes, pdict)
