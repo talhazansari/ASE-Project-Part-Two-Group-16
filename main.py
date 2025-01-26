@@ -10,9 +10,17 @@ def main():
     """Main: Generation of Streamlit App for visualizing electric charging stations & residents in Berlin"""
     # Load geographic data for postal codes
     df_postal_codes = pd.read_csv("datasets/" + pdict["file_geodat_plz"], delimiter=";")
-    
+
+
+
+
     # Load and preprocess location station data
     df_location_stations = pd.read_csv("datasets/" + pdict["file_lstations"], delimiter=",")
+
+
+
+
+
     df_preprocessed_stations = m1.preprop_lstat(df_location_stations, df_postal_codes, pdict)
     gdf_station_occurrences_by_plz = m1.count_plz_occurrences(df_preprocessed_stations)
 
