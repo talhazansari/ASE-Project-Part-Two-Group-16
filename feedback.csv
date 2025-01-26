@@ -1,8 +1,12 @@
-user_id,feedback_text,rating,status
-1,sadsadsa,1,Submitted
-1,dsadsad,1,Submitted
-1,sadsadsa,2,Submitted
-1,asdsada,4,Submitted
-1,sasa,1,Submitted
-1,sadsadsa,2,Submitted
-1,Albwerk GmbH & Co. KG - Ennabeurer Weg 0,1,Submitted
+user_id,feedback_text,rating,station_name,status
+1,sadsadsa,1,Station A - Main Street 123,Submitted
+1,dsadsad,1,Station B - Central Park 456,Submitted
+1,sadsadsa,2,Station C - Westend 789,Submitted
+1,asdsada,4,Station A - Main Street 123,Submitted
+1,sasa,1,Station D - East Avenue 101,Submitted
+1,sadsadsa,2,Station B - Central Park 456,Submitted
+1,Albwerk GmbH & Co. KG - Ennabeurer Weg 0,1,Station E - North Hill 202,Submitted
+
+1,saddsa,2,Albwerk GmbH & Co. KG - Ennabeurer Weg 0,Submitted
+1,This charging station is trash,3,smopi - Albstraße 14,Submitted
+1,jijijij,3,smopi - Albstraße 14,Submitted

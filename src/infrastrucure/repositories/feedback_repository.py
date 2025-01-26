@@ -21,7 +21,7 @@ class FeedbackRepository:
         """Append a single feedback entry to the CSV file."""
         file_exists = os.path.isfile(self.file_path)
         with open(self.file_path, mode='a', newline='') as file:
-            writer = csv.DictWriter(file, fieldnames=['user_id', 'feedback_text', 'rating', 'status'])
+            writer = csv.DictWriter(file, fieldnames=['user_id', 'feedback_text', 'rating', 'station_name', 'status'])
             if not file_exists:
                 writer.writeheader()  # Write header if file is being created
             writer.writerow(feedback)
@@ -37,5 +37,6 @@ class FeedbackRepository:
                     'user_id': row['user_id'],
                     'feedback_text': row['feedback_text'],
                     'rating': int(row['rating']),
+                    'station_name': row['station_name'],  # Load station_name from CSV
                     'status': row['status']
                 })

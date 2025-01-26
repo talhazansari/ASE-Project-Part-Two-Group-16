@@ -57,36 +57,43 @@ def feedback_history():
 
     if feedbacks:
         for fb in feedbacks:
+            # Display station name and feedback text
+            st.write(f"Charging Station: {fb['station_name']}")  # Show the station name
             st.write(f"Feedback: {fb['feedback_text']}")
             st.progress(int((fb['rating'] / 5) * 100))  # Progress bar based on feedback rating
             st.write("---")
     else:
         st.write("No feedback found. Please submit feedback.")
-
 def submit_feedback():
     """Allow users to submit new feedback."""
     st.subheader("Submit Feedback")
 
     df_location_stations = pd.read_csv("datasets/" + pdict["file_lstations"], delimiter=",")
 
+    # Create unique label (station name + address)
     df_location_stations["Unique_Label"] = df_location_stations["Betreiber"] + " - " + df_location_stations[
         "Straße"] + " " + df_location_stations["Hausnummer"].fillna("")
 
     unique_station_labels = df_location_stations["Unique_Label"].unique()
 
+    # Let the user select a station
     selected_station = st.selectbox("Select Charging Station", unique_station_labels)
 
-
+    # Get the logged-in user's ID
     user_id = st.session_state.logged_in_user['id']
+
+    # Get the feedback text and rating
     feedback_text = st.text_area("Suggestions")
     rating = st.slider("Feedback", min_value=1, max_value=5)
 
     if st.button("Submit Feedback"):
         if feedback_text.strip():
+            # Store both station name and feedback text
             feedback = {
                 'user_id': user_id,
-                'feedback_text': selected_station,
+                'feedback_text': feedback_text,  # Store user input feedback text
                 'rating': rating,
+                'station_name': selected_station,  # Save station name as well
                 'status': "Submitted"
             }
             feedback_repo.save(feedback)
