@@ -78,14 +78,14 @@ def submit_feedback():
 
 
     user_id = st.session_state.logged_in_user['id']
-    feedback_text = st.text_area("Malfunction Report")
+    feedback_text = st.text_area("Suggestions")
     rating = st.slider("Feedback", min_value=1, max_value=5)
 
     if st.button("Submit Feedback"):
         if feedback_text.strip():
             feedback = {
                 'user_id': user_id,
-                'feedback_text': feedback_text,
+                'feedback_text': selected_station,
                 'rating': rating,
                 'status': "Submitted"
             }
