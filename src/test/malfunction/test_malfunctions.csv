@@ -1,0 +1,11 @@
+user_id,station_id,description,timestamp,status,severity
+1,A123,Machine overheating,2025-01-27 22:30:08.413252,Open,2
+1,A123,Machine overheating,2025-01-27 22:30:12.232555,Open,2
+1,B456,Power failure,2025-01-27 22:30:12.232558,Closed,3
+1,A123,Machine overheating,2025-01-27 22:30:39.454033,Open,2
+1,B456,Power failure,2025-01-27 22:30:39.454037,Closed,3
+1,A123,Machine overheating,2025-01-27 22:30:43.223079,Open,2
+2,A123,Power failure,2025-01-27 22:30:43.223084,Closed,3
+1,A123,Machine overheating,2025-01-27 22:30:49.794997,Open,2
+2,A123,Power failure,2025-01-27 22:30:49.795000,Closed,3
+1,A123,Machine overheating,2025-01-27 22:31:12.863618,Open,2
