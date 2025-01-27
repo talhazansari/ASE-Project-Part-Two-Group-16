@@ -11,3 +11,4 @@ user_id,station_id,description,timestamp,status,severity
 123,station_001,sdaads,2025-01-27T21:06:56.317703,Reported,1
 1,station_001,sdadsa,2025-01-27T21:10:45.643673,Reported,3
 1,smopi - Albstraße 14,dsads,2025-01-27T21:11:51.246814,Reported,3
+1,Stadtwerke Rostock AG - Schmarler Damm 5,dsadsa,2025-01-27T21:48:46.102043,Reported,4

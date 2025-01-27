@@ -1,11 +1,11 @@
 from src.domain.events.malfunction_reported import MalfunctionReportedEvent
-from src.domain.value_objects.station_id import StationId
+
 from src.domain.value_objects.malfunction_status import MalfunctionStatus
 from datetime import datetime
 
 
 class MalfunctionReport:
-    def __init__(self, user_id, station_id: StationId, description: str):
+    def __init__(self, user_id,  station_id, description: str):
         self.user_id = user_id
         self.station_id = station_id
         self.description = description
