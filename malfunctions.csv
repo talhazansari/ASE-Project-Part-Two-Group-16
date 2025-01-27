@@ -1,0 +1,13 @@
+user_id,station_id,description,timestamp,status,severity
+123,station_001,Charger not dispensing power,2025-01-27T14:35:00,Reported,5
+456,station_002,Screen is not displaying correctly,2025-01-26T18:22:15,Reported,3
+789,station_003,Connector is damaged,2025-01-25T10:05:45,Resolved,4
+123,station_004,Station completely offline,2025-01-27T16:00:00,Pending,5
+123,station_001,sadsadsa,2025-01-27T21:02:10.458920,Reported,1
+123,station_001,sadasdsa,2025-01-27T21:02:20.842948,Reported,4
+123,station_001,asdsafsaf213,2025-01-27T21:02:37.954997,Reported,3
+123,station_001,asdsadsa,2025-01-27T21:03:52.092829,Reported,2
+123,station_001,asdasdas,2025-01-27T21:04:11.983213,Reported,1
+123,station_001,sdaads,2025-01-27T21:06:56.317703,Reported,1
+1,station_001,sdadsa,2025-01-27T21:10:45.643673,Reported,3
+1,smopi - Albstraße 14,dsads,2025-01-27T21:11:51.246814,Reported,3

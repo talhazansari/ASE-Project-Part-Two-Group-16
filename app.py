@@ -4,10 +4,12 @@ from core import methods as m1
 from config import pdict
 from src.infrastrucure.repositories.feedback_repository import FeedbackRepository
 from src.infrastrucure.repositories.user_repository import UserRepository
+from src.infrastrucure.repositories.malfunction_repository import MalfunctionRepository
 
 # Initialize repositories
 user_repo = UserRepository()
 feedback_repo = FeedbackRepository()
+malfunction_repo = MalfunctionRepository()
 
 # Add a test user if not already present
 if not any(user['email'] == 'test@example.com' for user in user_repo.users):
@@ -16,6 +18,7 @@ if not any(user['email'] == 'test@example.com' for user in user_repo.users):
 # Session state for user login
 if 'logged_in_user' not in st.session_state:
     st.session_state.logged_in_user = None
+
 
 def load_data():
     """Load and preprocess all required data."""
@@ -26,6 +29,7 @@ def load_data():
     df_resident_data = pd.read_csv("datasets/" + pdict["file_residents"], delimiter=",")
     gdf_preprocessed_residents = m1.preprop_resid(df_resident_data, df_postal_codes, pdict)
     return gdf_station_occurrences_by_plz, gdf_preprocessed_residents
+
 
 def login_page():
     """Render the login page."""
@@ -42,6 +46,7 @@ def login_page():
             st.success(f"Welcome, {user['name']}!")
         else:
             st.error("Invalid credentials. Please try again.")
+
 
 def feedback_history():
     """Render the feedback history for logged-in users."""
@@ -75,6 +80,7 @@ def feedback_history():
                 st.write("---")
     else:
         st.write("No feedback found. Please submit feedback.")
+
 
 def submit_feedback():
     """Allow users to submit new feedback."""
@@ -110,34 +116,126 @@ def submit_feedback():
         else:
             st.warning("Please provide feedback text.")
 
+
+def sidebar_malfunctions():
+    """Display malfunctions in the sidebar and let the user select what to view."""
+    st.sidebar.title("Malfunction Management")
+
+    # Sidebar options to view all malfunctions
+    show_all = st.sidebar.button("Show All Malfunctions")
+
+    if show_all:
+        show_all_malfunctions()
+
+
+def show_all_malfunctions():
+    """Render the malfunction report history for logged-in users."""
+    st.subheader("Malfunction Report History", anchor="malfunction-history")
+
+    malfunctions = malfunction_repo.get_all_malfunctions()
+
+    if malfunctions:
+        for malfunction in malfunctions:
+            with st.container():
+                st.markdown(f"### Station: {malfunction['station_id']}")
+                st.markdown(f"**Description:** {malfunction['description']}")
+                st.markdown(f"**Severity:** {malfunction['severity']}")
+                st.markdown(f"**Status:** {malfunction['status']}")
+                st.markdown(f"**Reported At:** {malfunction['timestamp']}")
+                st.write("---")
+    else:
+        st.write("No malfunctions reported.")
+
+def report_malfunction():
+    df_location_stations = pd.read_csv("datasets/" + pdict["file_lstations"], delimiter=",")
+    df_location_stations["Unique_Label"] = df_location_stations["Betreiber"] + " - " + df_location_stations[
+        "Straße"] + " " + df_location_stations["Hausnummer"].fillna("")
+
+    unique_station_labels = df_location_stations["Unique_Label"].unique()
+
+    st.subheader("Report Malfunction", anchor="report-malfunction")
+
+    # Let the user select a station
+    selected_station = st.selectbox("Select Charging Station", unique_station_labels, key="station_select")
+
+    user_id = st.session_state.logged_in_user['id']
+
+    malfunction_description = st.text_area("Describe the Issue", placeholder="What is the problem?")
+    severity = st.slider("Severity Level", min_value=1, max_value=5, help="1 = Minor, 5 = Critical")
+
+    if st.button("Submit Malfunction", key="submit_malfunction_btn"):
+        if malfunction_description.strip():
+            malfunction_report = {
+                'user_id': user_id,
+                'station_id': selected_station,
+                'description': malfunction_description,
+                'timestamp': pd.Timestamp.now().isoformat(),
+                'severity': severity,
+                'status': "Reported"
+            }
+            malfunction_repo.save(malfunction_report)  # Save the report
+            st.success("Malfunction reported successfully!")
+        else:
+            st.warning("Please describe the malfunction.")
+
+
+def malfunction_history():
+    """Render the malfunction report history for logged-in users."""
+    st.subheader("Malfunction Report History", anchor="malfunction-history")
+    user_id = st.session_state.logged_in_user['id']
+    malfunctions = malfunction_repo.get_by_user_id(user_id)
+
+    if malfunctions:
+        for malfunction in malfunctions:
+            with st.container():
+                st.markdown(f"### Station: {malfunction['station_id']}")
+                st.markdown(f"**Description:** {malfunction['description']}")
+                st.markdown(f"**Severity:** {malfunction['severity']}")
+                st.markdown(f"**Status:** {malfunction['status']}")
+                st.markdown(f"**Reported At:** {malfunction['timestamp']}")
+                st.write("---")
+    else:
+        st.write("No malfunctions reported.")
+
+
 def view_profile():
-    """Render the 'View Profile' section with feedback history and submission."""
+    """Render the 'View Profile' section with feedback and malfunction history."""
     st.title("View Profile", anchor="profile-title")
-    menu = st.radio("Options", ["Feedback History", "Submit Feedback"], key="profile_menu")
+    menu = st.radio("Options", ["Feedback History", "Submit Feedback", "View Malfunction History"], key="profile_menu")
 
     if menu == "Feedback History":
         feedback_history()
     elif menu == "Submit Feedback":
         submit_feedback()
+    elif menu == "View Malfunction History":
+        malfunction_history()
+
+
 
 def main_app():
     gdf_station_occurrences_by_plz, gdf_preprocessed_residents = load_data()
     m1.make_streamlit_electric_Charging_resid(gdf_station_occurrences_by_plz, gdf_preprocessed_residents)
 
+
 def main():
     if st.session_state.logged_in_user:
         st.sidebar.title("Menu")
-        menu = st.sidebar.radio("Select Page", ["Main App", "View Profile", "Logout"])
+        menu = st.sidebar.radio("Select Page", ["Main App", "View Profile", "Report Malfunction", "Logout", "Show All Malfunctions"])
 
         if menu == "Main App":
             main_app()
         elif menu == "View Profile":
             view_profile()
+        elif menu == "Report Malfunction":
+            report_malfunction()
+        elif menu == "Show All Malfunctions":  # Corrected label
+            show_all_malfunctions()
         elif menu == "Logout":
             st.session_state.logged_in_user = None
             st.success("You have been logged out.")
     else:
         login_page()
+
 
 if __name__ == "__main__":
     main()
