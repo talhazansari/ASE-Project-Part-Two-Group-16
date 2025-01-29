@@ -6,6 +6,9 @@ from src.infrastrucure.repositories.feedback_repository import FeedbackRepositor
 from src.infrastrucure.repositories.user_repository import UserRepository
 from src.infrastrucure.repositories.malfunction_repository import MalfunctionRepository
 
+import uuid
+
+
 # Initialize repositories
 user_repo = UserRepository()
 feedback_repo = FeedbackRepository()
@@ -31,6 +34,34 @@ def load_data():
     return gdf_station_occurrences_by_plz, gdf_preprocessed_residents
 
 
+def sign_up_page():
+    """Render the sign-up page."""
+    st.title("Sign Up")
+    name = st.text_input("Full Name", placeholder="Enter your full name")
+    email = st.text_input("Email", placeholder="Enter your email")
+    password = st.text_input("Password", type="password", placeholder="Create a password")
+    confirm_password = st.text_input("Confirm Password", type="password", placeholder="Re-enter your password")
+
+    if st.button("Sign Up", key="sign_up_button"):
+        if not name or not email or not password or not confirm_password:
+            st.warning("All fields are required.")
+        elif password != confirm_password:
+            st.warning("Passwords do not match.")
+        elif user_repo.get_by_email_and_password(email, password):
+            st.error("User already exists. Please log in.")
+        else:
+            user = {
+                'id': str(uuid.uuid4()),  # Generate a unique user ID
+                'name': name,
+                'email': email,
+                'password': password
+            }
+            user_repo.save(user)
+            st.success("Account created successfully! Please log in.")
+            view_profile()
+
+
+
 def login_page():
     """Render the login page."""
     st.title("Login", anchor="login-title")
@@ -38,6 +69,7 @@ def login_page():
 
     email = st.text_input("Email", placeholder="Enter your email")
     password = st.text_input("Password", type="password", placeholder="Enter your password")
+    # st.button("sign-up")
 
     if st.button("Login", key="login_button", help="Click to login"):
         user = user_repo.get_by_email_and_password(email, password)
@@ -234,8 +266,16 @@ def main():
             st.session_state.logged_in_user = None
             st.success("You have been logged out.")
     else:
-        login_page()
-
+        page = st.radio("", ["Login", "Sign Up"])
+        if page == "Login":
+            login_page()
+        else:
+            sign_up_page()
 
 if __name__ == "__main__":
     main()
+
+
+
+
+
