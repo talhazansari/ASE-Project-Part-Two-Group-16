@@ -94,3 +94,10 @@ def test_load_empty_csv(mock_empty_csv_file):
     """Test that an empty CSV file loads correctly."""
     repo = UserRepository(file_path=mock_empty_csv_file)
     assert len(repo.users) == 0
+
+
+
+
+
+
+

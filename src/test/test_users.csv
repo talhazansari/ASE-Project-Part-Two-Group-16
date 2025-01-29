@@ -1,0 +1,22 @@
+id,name,email,password
+9b5314bf-74f4-483c-ba64-0bfcdd983970,New User,newuser@example.com,securepass
+dfd266b2-becd-44c8-8e66-441bb5fa0516,Existing User,existing@example.com,password123
+7337d089-e7e6-4e37-83fd-b530d5ae7592,Duplicate User,existing@example.com,newpassword
+d1b5685d-1c1a-4970-bf0e-c75b65b3becc,,invalid@example.com,
+e5db1818-0825-4eae-bef1-45b97117ab18,Confirmed User,confirmed@example.com,securepassword
+bfe56339-b05e-4ff2-9170-1ac84ea33c43,New User,newuser@example.com,securepass
+fb93474d-08a4-4c2e-bb99-0ba66d2523ee,Existing User,existing@example.com,password123
+21d2b99c-6028-4bd9-a573-cfc213026034,Duplicate User,existing@example.com,newpassword
+ee41a0d4-2eb2-4018-9219-45aeb725e226,,invalid@example.com,
+aaef8bdd-fdaa-4cd8-bb72-619759df7e26,Confirmed User,confirmed@example.com,securepassword
+ee6a46e2-beef-481d-99c6-773d2a320c73,New User,newuser@example.com,securepass
+5ffc1bb6-3464-4b5b-ab6c-baa7d15cbdce,Existing User,existing@example.com,password123
+4be749d0-f016-4784-92fd-3edbbf49cff5,Duplicate User,existing@example.com,newpassword
+fba48cc7-20e1-4b95-9370-d5e04354a02a,,invalid@example.com,
+f79556cb-dd0d-4de4-b7e3-c37c9e355353,Confirmed User,confirmed@example.com,securepassword
+8fb754ff-0d4b-46bd-8d97-45d62698835d,New User,newuser@example.com,securepass
+217b7e11-584a-4283-9d33-4d6dd32faa21,Existing User,existing@example.com,password123
+030ac40b-43fb-43a9-8055-20f4022e382d,Confirmed User,confirmed@example.com,securepassword
+ef34fe3e-ed81-4c2b-ae67-b3d75be02058,New User,newuser@example.com,securepass
+49b53c17-1c41-4b89-98d7-699f71d7d1ca,Existing User,existing@example.com,password123
+cc3aaf87-b0c7-4735-92e6-812b85440f90,Confirmed User,confirmed@example.com,securepassword

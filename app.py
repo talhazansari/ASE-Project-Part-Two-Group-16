@@ -58,7 +58,7 @@ def sign_up_page():
             }
             user_repo.save(user)
             st.success("Account created successfully! Please log in.")
-            view_profile()
+          
 
 
 
