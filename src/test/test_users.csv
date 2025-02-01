@@ -20,3 +20,4 @@ f79556cb-dd0d-4de4-b7e3-c37c9e355353,Confirmed User,confirmed@example.com,secure
 ef34fe3e-ed81-4c2b-ae67-b3d75be02058,New User,newuser@example.com,securepass
 49b53c17-1c41-4b89-98d7-699f71d7d1ca,Existing User,existing@example.com,password123
 cc3aaf87-b0c7-4735-92e6-812b85440f90,Confirmed User,confirmed@example.com,securepassword
+1,Test User,test@example.com,password123

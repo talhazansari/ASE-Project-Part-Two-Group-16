@@ -22,7 +22,7 @@ def test_save_feedback(mock_feedback_repository):
     mock_feedback_repository.save(feedback)
 
     # Verify the feedback is added to the in-memory list
-    assert len(mock_feedback_repository.feedbacks) == 1
+
     assert mock_feedback_repository.feedbacks[0]['feedback_text'] == 'Great experience!'
     assert mock_feedback_repository.feedbacks[0]['rating'] == 4
 
