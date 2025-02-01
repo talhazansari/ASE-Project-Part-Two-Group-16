@@ -1,4 +1,3 @@
-from src.domain.value_objects.station_id import StationId
 
 
 class MalfunctionReport:
